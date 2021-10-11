@@ -104,7 +104,7 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
     }()
 
     private lazy var groupingSeparator: String = {
-        locale.groupingSeparator ?? ","
+        locale.groupingSeparator ?? ""
     }()
 
     let minusCharacter = "-"

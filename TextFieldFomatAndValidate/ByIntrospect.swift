@@ -60,7 +60,7 @@ class ValidationDelegate: NSObject, UITextFieldDelegate {
     }()
 
     private lazy var groupingSeparator: String = {
-        locale.groupingSeparator ?? ","
+        locale.groupingSeparator ?? ""
     }()
 
     var text:String = ""
