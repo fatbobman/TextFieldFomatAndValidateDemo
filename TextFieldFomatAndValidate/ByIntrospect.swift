@@ -80,7 +80,7 @@ class ValidationDelegate: NSObject, UITextFieldDelegate {
 
     init(type: ValidationType, maxLength: Int = 18, allowNagative: Bool = false, locale: Locale = .current) {
         self.type = type
-        self.maxLength = maxLength
+        self.maxLength = maxLength == .max ? maxLength - 1 : maxLength
         self.allowNagative = allowNagative
         self.locale = locale
     }
@@ -113,6 +113,8 @@ class ValidationDelegate: NSObject, UITextFieldDelegate {
         if minusCount == 1, !totalText.hasPrefix("-") {
             return false
         }
+
+        // 检查长度
         guard totalText.count < maxLength + minusCount else {
             return false
         }
