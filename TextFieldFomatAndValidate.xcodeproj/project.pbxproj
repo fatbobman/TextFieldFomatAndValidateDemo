@@ -11,6 +11,9 @@
 		7600C4F62713C65A00D576D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600C4F52713C65A00D576D6 /* ContentView.swift */; };
 		7600C4F82713C65B00D576D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7600C4F72713C65B00D576D6 /* Assets.xcassets */; };
 		7600C4FB2713C65B00D576D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7600C4FA2713C65B00D576D6 /* Preview Assets.xcassets */; };
+		7600C5032713C68D00D576D6 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 7600C5022713C68D00D576D6 /* Introspect */; };
+		7600C5052713C6B600D576D6 /* ByIntrospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600C5042713C6B600D576D6 /* ByIntrospect.swift */; };
+		7600C5072713C6C500D576D6 /* ByPureSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600C5062713C6C500D576D6 /* ByPureSwiftUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		7600C4F52713C65A00D576D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7600C4F72713C65B00D576D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7600C4FA2713C65B00D576D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7600C5042713C6B600D576D6 /* ByIntrospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByIntrospect.swift; sourceTree = "<group>"; };
+		7600C5062713C6C500D576D6 /* ByPureSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByPureSwiftUI.swift; sourceTree = "<group>"; };
+		76FEA4A02713DE0000520263 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7600C5032713C68D00D576D6 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,8 +60,11 @@
 			children = (
 				7600C4F32713C65A00D576D6 /* TextFieldFomatAndValidateApp.swift */,
 				7600C4F52713C65A00D576D6 /* ContentView.swift */,
+				7600C5042713C6B600D576D6 /* ByIntrospect.swift */,
+				7600C5062713C6C500D576D6 /* ByPureSwiftUI.swift */,
 				7600C4F72713C65B00D576D6 /* Assets.xcassets */,
 				7600C4F92713C65B00D576D6 /* Preview Content */,
+				76FEA4A02713DE0000520263 /* MyPlayground.playground */,
 			);
 			path = TextFieldFomatAndValidate;
 			sourceTree = "<group>";
@@ -83,6 +93,9 @@
 			dependencies = (
 			);
 			name = TextFieldFomatAndValidate;
+			packageProductDependencies = (
+				7600C5022713C68D00D576D6 /* Introspect */,
+			);
 			productName = TextFieldFomatAndValidate;
 			productReference = 7600C4F02713C65A00D576D6 /* TextFieldFomatAndValidate.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +124,9 @@
 				Base,
 			);
 			mainGroup = 7600C4E72713C65A00D576D6;
+			packageReferences = (
+				7600C5012713C68D00D576D6 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+			);
 			productRefGroup = 7600C4F12713C65A00D576D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,7 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7600C5072713C6C500D576D6 /* ByPureSwiftUI.swift in Sources */,
 				7600C4F62713C65A00D576D6 /* ContentView.swift in Sources */,
+				7600C5052713C6B600D576D6 /* ByIntrospect.swift in Sources */,
 				7600C4F42713C65A00D576D6 /* TextFieldFomatAndValidateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +295,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +325,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -343,6 +361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7600C5012713C68D00D576D6 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7600C5022713C68D00D576D6 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7600C5012713C68D00D576D6 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7600C4E82713C65A00D576D6 /* Project object */;
 }
