@@ -25,12 +25,15 @@ struct FormatAndValidateByPureSwiftUIView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("-1000...1000", text: $intStore.text)
-                    .formatAndValidate(intStore) { $0 < -1000 || $0 > 1000 }
-                Text("\(doubleStore.result ?? 0)")
+                Section(header: Text("Int (-1000...1000) current:\(intStore.result ?? 0)")) {
+                    TextField("-1000...1000", text: $intStore.text)
+                        .formatAndValidate(intStore) { $0 < -1000 || $0 > 1000 }
+                }
 
-                TextField("-1000...1000", text: $doubleStore.text)
-                    .formatAndValidate(doubleStore) { $0 < -1000 || $0 > 1000 }
+                Section(header: Text("Double (-1000...1000) \(doubleStore.result ?? 0 ,format: .number.precision(.fractionLength(0...3)))")) {
+                    TextField("-1000...1000", text: $doubleStore.text)
+                        .formatAndValidate(doubleStore) { $0 < -1000 || $0 > 1000 }
+                }
             }
             .navigationTitle("By SwiftUI")
         }
@@ -50,6 +53,11 @@ extension View {
         .foregroundColor(numberStore.error ? .red : .primary)
         .disableAutocorrection(true)
         .autocapitalization(.none)
+        .onSubmit {
+            if numberStore.text.count > 1 && numberStore.text.suffix(1) == numberStore.decimalSeparator {
+                numberStore.text.removeLast()
+            }
+        }
     }
 }
 
@@ -76,7 +84,7 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
         self.formatter = formatter
         self.locale = locale
         backupText = text
-        self.maxLength = maxLength
+        self.maxLength = maxLength == .max ? .max - 1 : maxLength
     }
 
     var result: T? {
@@ -91,7 +99,7 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
         backupText = text
     }
 
-    private lazy var decimalSeparator: String = {
+    lazy var decimalSeparator: String = {
         locale.decimalSeparator ?? "."
     }()
 

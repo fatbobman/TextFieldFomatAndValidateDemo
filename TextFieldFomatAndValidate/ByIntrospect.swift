@@ -63,6 +63,8 @@ class ValidationDelegate: NSObject, UITextFieldDelegate {
         locale.groupingSeparator ?? ","
     }()
 
+    var text:String = ""
+
     private lazy var characters: String = {
         let number = "0123456789"
         switch type {
@@ -89,40 +91,31 @@ class ValidationDelegate: NSObject, UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = textField.text ?? ""
-        switch type {
-        case .int:
-            return characterValidatorForInt(text: text, replacementString: string)
-        case .double:
-            return characterValidatorForDouble(text: text, replacementString: string)
-        }
+        return validator(text: text, replacementString: string)
     }
 
-    private func characterValidatorForInt(text: String, replacementString string: String) -> Bool {
+    private func validator(text: String, replacementString string: String) -> Bool {
         // 判断有效字符
         guard string.allSatisfy({ characters.contains($0) }) else { return false }
         let totalText = text + string
-        // 检查负号
-        let minusCount = totalText.components(separatedBy: minusCharacter).count - 1
-
-        if minusCount > 1 { return false }
-        if minusCount == 1, !totalText.hasPrefix("-") { return false }
-        guard totalText.count < maxLength + minusCount else { return false }
-        return true
-    }
-
-    private func characterValidatorForDouble(text: String, replacementString string: String) -> Bool {
-        // 判断有效字符
-        guard string.allSatisfy({ characters.contains($0) }) else { return false }
 
         // 检查小数点
-        if text.contains(decimalSeparator), string.contains(decimalSeparator) { return false }
+        if type == .double, text.contains(decimalSeparator), string.contains(decimalSeparator) {
+            return false
+        }
 
         // 检查负号
-        let totalText = text + string
         let minusCount = totalText.components(separatedBy: minusCharacter).count - 1
-        if minusCount > 1 { return false }
-        if minusCount == 1, !totalText.hasPrefix("-") { return false }
-        guard totalText.count < maxLength + minusCount else { return false }
+
+        if minusCount > 1 {
+            return false
+        }
+        if minusCount == 1, !totalText.hasPrefix("-") {
+            return false
+        }
+        guard totalText.count < maxLength + minusCount else {
+            return false
+        }
         return true
     }
 
