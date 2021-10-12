@@ -25,7 +25,7 @@ struct FormatAndValidateByPureSwiftUIView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Int (-1000...1000) current:\(intStore.result ?? 0)")) {
+                Section(header: Text("Int (-1000...1000) MaxLength:5 current:\(intStore.result ?? 0)")) {
                     TextField("-1000...1000", text: $intStore.text)
                         .formatAndValidate(intStore) { $0 < -1000 || $0 > 1000 }
                 }
