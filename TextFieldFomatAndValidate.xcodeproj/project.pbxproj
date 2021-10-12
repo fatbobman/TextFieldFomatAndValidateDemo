@@ -43,6 +43,7 @@
 		7600C4E72713C65A00D576D6 = {
 			isa = PBXGroup;
 			children = (
+				7668726027155CE500357345 /* README.md */,
 				7600C4F22713C65A00D576D6 /* TextFieldFomatAndValidate */,
 				7600C4F12713C65A00D576D6 /* Products */,
 			);
@@ -66,7 +67,6 @@
 				7600C4F72713C65B00D576D6 /* Assets.xcassets */,
 				7600C4F92713C65B00D576D6 /* Preview Content */,
 				76FEA4A02713DE0000520263 /* MyPlayground.playground */,
-				7668726027155CE500357345 /* README.md */,
 			);
 			path = TextFieldFomatAndValidate;
 			sourceTree = "<group>";
