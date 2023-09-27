@@ -12,13 +12,13 @@ struct FormatAndValidateByPureSwiftUIView: View {
     @StateObject var intStore = NumberStore(text: "",
                                             type: .int,
                                             maxLength: 5,
-                                            allowNagative: true,
+                                            allowNegative: true,
                                             formatter: IntegerFormatStyle<Int>())
 
     @StateObject var doubleStore = NumberStore(text: "",
                                                type: .double,
                                                maxLength: .max,
-                                               allowNagative: true,
+                                               allowNegative: true,
                                                formatter: FloatingPointFormatStyle<Double>()
                                                    .precision(.fractionLength(0...3))
                                                    .rounded(rule: .towardZero))
@@ -44,11 +44,14 @@ extension View {
     @ViewBuilder
     func formatAndValidate<T: Numeric, F: ParseableFormatStyle>(_ numberStore: NumberStore<T, F>, errorCondition: @escaping (T) -> Bool) -> some View {
         onChange(of: numberStore.text) { text in
+            numberStore.error = false
             if let value = numberStore.getValue(),!errorCondition(value) {
                 numberStore.error = false
             } else if text.isEmpty || text == numberStore.minusCharacter {
                 numberStore.error = false
-            } else { numberStore.error = true }
+            } else {
+                numberStore.error = true
+            }
         }
         .foregroundColor(numberStore.error ? .red : .primary)
         .disableAutocorrection(true)
@@ -65,22 +68,22 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
     @Published var text: String
     let type: ValidationType
     let maxLength: Int
-    let allowNagative: Bool
+    let allowNegative: Bool
     private var backupText: String
-    var error: Bool = false
+    @Published var error: Bool = false
     private let locale: Locale
     let formatter: F
 
     init(text: String = "",
          type: ValidationType,
          maxLength: Int = 18,
-         allowNagative: Bool = false,
+         allowNegative: Bool = false,
          formatter: F,
          locale: Locale = .current)
     {
         self.text = text
         self.type = type
-        self.allowNagative = allowNagative
+        self.allowNegative = allowNegative
         self.formatter = formatter
         self.locale = locale
         backupText = text
@@ -113,9 +116,9 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
         let number = "0123456789"
         switch type {
         case .int:
-            return number + (allowNagative ? minusCharacter : "")
+            return number + (allowNegative ? minusCharacter : "")
         case .double:
-            return number + (allowNagative ? minusCharacter : "") + decimalSeparator
+            return number + (allowNegative ? minusCharacter : "") + decimalSeparator
         }
     }()
 
@@ -172,10 +175,12 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
         // 将文字转换成数字，然后在转换为文字（保证文字格式正确）
         if let value = try? formatter.parseStrategy.parse(text) {
             let hasDecimalCharacter = text.contains(decimalSeparator)
+            let zeroCount = text.trailingZerosCountAfterDecimal()
             text = formatter.format(value)
             // 保护最后的小数点（不特别处理的话，转换回来的文字可能不包含小数点）
             if hasDecimalCharacter, !text.contains(decimalSeparator) {
                 text.append(decimalSeparator)
+                text += (0..<zeroCount).map{_ in "0"}.joined(separator: "")
             }
             backup()
             return value
@@ -188,5 +193,29 @@ class NumberStore<T: Numeric, F: ParseableFormatStyle>: ObservableObject where F
     enum ValidationType {
         case int
         case double
+    }
+}
+
+extension String {
+    func trailingZerosCountAfterDecimal() -> Int {
+        var count = 0
+        var foundDecimal = false
+        
+        for char in self.reversed() {
+            if char == "." {
+                foundDecimal = true
+                break
+            }
+        }
+        
+        for char in self.reversed() {
+            if foundDecimal && char == "0" {
+                count += 1
+            } else if char != "0" {
+                break
+            }
+        }
+        
+        return count
     }
 }
